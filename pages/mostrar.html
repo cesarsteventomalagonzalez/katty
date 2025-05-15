@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>¿Quieres ser mi novia?</title>
+  <title>¿Quieres?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
@@ -14,7 +14,7 @@
     html, body {
       height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      background: #e91e63;
+      background: #ffd900;
       color: white;
       overflow: hidden;
     }
@@ -33,11 +33,11 @@
       font-size: 2.5rem;
       margin-bottom: 30px;
       z-index: 2;
+      color: rgb(0, 0, 71);
     }
 
     .botones {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
       z-index: 2;
@@ -48,18 +48,20 @@
       font-size: 18px;
       border: none;
       border-radius: 10px;
-      background-color: #880e4f;
-      color: white;
+      background-color: #000549;
+      color: rgb(255, 230, 0);
       cursor: pointer;
       transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #ad1457;
+      background-color: #f3eff1;
     }
 
     #no {
       position: absolute;
+      pointer-events: none;
+      z-index: 3;
     }
 
     /* Fondo de corazones animados */
@@ -113,11 +115,12 @@
 
   <div class="botones">
     <button onclick="aceptar()">Sí ❤️</button>
-    <button id="no" onmouseover="moverBoton()">No 😅</button>
   </div>
 
+  <button id="no">No 😅</button>
+
   <script>
-    // Generar corazones
+    // Corazones flotando
     const contenedor = document.getElementById("corazones");
     for (let i = 0; i < 30; i++) {
       let span = document.createElement("span");
@@ -127,18 +130,21 @@
       contenedor.appendChild(span);
     }
 
-    // Botón que se escapa
-    function moverBoton() {
-      const boton = document.getElementById("no");
-      const maxX = window.innerWidth - boton.offsetWidth;
-      const maxY = window.innerHeight - boton.offsetHeight;
+    // Botón "No" que huye constantemente
+    const botonNo = document.getElementById("no");
+
+    function moverBotonAuto() {
+      const maxX = window.innerWidth - botonNo.offsetWidth;
+      const maxY = window.innerHeight - botonNo.offsetHeight;
       const x = Math.random() * maxX;
       const y = Math.random() * maxY;
-      boton.style.left = `${x}px`;
-      boton.style.top = `${y}px`;
+      botonNo.style.left = `${x}px`;
+      botonNo.style.top = `${y}px`;
     }
 
-    // Al hacer clic en "Sí"
+    setInterval(moverBotonAuto, 600); // Se mueve cada 600 ms
+
+    // Botón "Sí"
     function aceptar() {
       document.body.innerHTML = `
         <div class="corazones" id="corazones"></div>
